@@ -7,7 +7,41 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
-st.set_page_config(page_title="SmartStudy AI 2.0", page_icon="📚", layout="wide")
+st.set_page_config(page_title="SmartStudy AI | Learn Smarter", page_icon="📚", layout="wide")
+
+# Premium, responsive visual system
+st.markdown("""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
+:root { --brand:#5145CD; --brand2:#756CF0; --ink:#172033; --muted:#68738A; --line:#E7EAF2; --surface:#FFFFFF; --soft:#F5F6FC; }
+html, body, [class*="css"] { font-family:'DM Sans',sans-serif; }
+.brand-eyebrow { display:inline-block; color:#5145CD; background:#ECEBFF; border:1px solid #DFDDFF; border-radius:999px; padding:5px 11px; font-size:.72rem; font-weight:800; letter-spacing:.12em; margin-bottom:8px; }
+.stApp { background:linear-gradient(180deg,#F8F9FF 0%,#F5F7FC 100%); color:var(--ink); }
+[data-testid="stHeader"] { background:rgba(248,249,255,.92); }
+.block-container { max-width:1320px; padding-top:2rem; padding-bottom:3rem; }
+h1,h2,h3 { font-family:'Manrope',sans-serif !important; letter-spacing:-.035em; color:#172033; }
+h1 { font-size:2.35rem !important; font-weight:800 !important; }
+h2 { font-size:1.55rem !important; font-weight:800 !important; }
+h3 { font-size:1.12rem !important; font-weight:700 !important; }
+p, label, .stCaption { color:#536078; }
+[data-testid="stSidebar"] { background:#FFFFFF; border-right:1px solid #E7EAF2; }
+[data-testid="stSidebar"] > div { padding-top:1.5rem; }
+[data-testid="stMetric"] { background:#FFFFFF; border:1px solid var(--line); border-radius:18px; padding:20px 22px; box-shadow:0 5px 20px rgba(33,42,80,.045); }
+[data-testid="stMetricLabel"] { color:#68738A !important; font-weight:600; }
+[data-testid="stMetricValue"] { color:#22294A !important; font-family:'Manrope',sans-serif; font-weight:800; }
+.stButton > button, [data-testid="stFormSubmitButton"] button { border-radius:12px; min-height:2.8rem; border:1px solid #DADDF0; font-weight:700; transition:all .15s ease; }
+.stButton > button[kind="primary"], [data-testid="stFormSubmitButton"] button[kind="primary"] { background:linear-gradient(135deg,#5145CD,#756CF0); color:white; border:0; box-shadow:0 6px 15px rgba(81,69,205,.18); }
+.stButton > button:hover { border-color:#756CF0; transform:translateY(-1px); }
+[data-testid="stTabs"] [role="tablist"] { gap:8px; border-bottom:1px solid #E2E6F0; }
+[data-testid="stTabs"] button[role="tab"] { border-radius:11px 11px 0 0; padding:12px 15px; font-weight:700; }
+[data-testid="stTabs"] button[aria-selected="true"] { color:#5145CD; border-bottom:3px solid #5145CD; }
+[data-testid="stSelectbox"] > div > div, [data-testid="stTextInput"] input, [data-testid="stTextArea"] textarea, [data-testid="stDateInput"] input { border-radius:11px; border-color:#DDE2EE; background:#FFFFFF; }
+[data-testid="stDataFrame"], [data-testid="stTable"] { border:1px solid #E5E8F0; border-radius:13px; overflow:hidden; }
+[data-testid="stAlert"] { border-radius:13px; }
+hr { border-color:#E6E9F2; }
+@media (max-width: 700px) { .block-container { padding:1rem .8rem 2rem; } h1 {font-size:1.75rem !important;} [data-testid="stMetric"] {padding:14px;} [data-testid="stTabs"] [role="tablist"] {gap:0; overflow-x:auto;} [data-testid="stTabs"] button[role="tab"] {padding:9px 10px; font-size:.85rem;} }
+</style>
+""", unsafe_allow_html=True)
 
 # Prototype database. On Streamlit Community Cloud, local files may reset after a rebuild/restart.
 DB_PATH = Path("smartstudy_data.db")
@@ -68,6 +102,66 @@ QUESTIONS = [
     {"id":"HIS_001","stream":"Humanities","subject":"History","topic":"Historical Sources","difficulty":"Easy","q":"Which source is most directly useful for studying an ancient ruler's official orders?","options":["Royal inscription","Modern advertisement","Weather forecast","Sports report"],"answer":"Royal inscription","explanation":"Inscriptions can preserve official orders and public records from the period."},
     {"id":"GEO_001","stream":"Humanities","subject":"Geography","topic":"Maps and Scale","difficulty":"Easy","q":"A map scale of 1:100,000 means 1 cm on the map represents:","options":["100 m on the ground","1 km on the ground","10 km on the ground","100 km on the ground"],"answer":"1 km on the ground","explanation":"100,000 cm = 1 km."},
     {"id":"POL_001","stream":"Humanities","subject":"Political Science","topic":"Constitution","difficulty":"Easy","q":"A constitution primarily sets out a country's:","options":["Basic rules and institutions of government","Daily weather","Private shopping lists","Sports results"],"answer":"Basic rules and institutions of government","explanation":"A constitution defines core principles, powers and institutions of the state."},
+    # Expanded Science question bank: PCM
+    {"id":"PHY_028","stream":"Science","subject":"Physics","topic":"Units and Measurements","difficulty":"Easy","q":"The dimensional formula of velocity is:","options":["[LT⁻¹]","[LT⁻²]","[MLT⁻¹]","[ML²T⁻²]"],"answer":"[LT⁻¹]","explanation":"Velocity is displacement divided by time, so its dimension is L T⁻¹."},
+    {"id":"PHY_029","stream":"Science","subject":"Physics","topic":"Vectors","difficulty":"Easy","q":"Which quantity is a vector?","options":["Mass","Time","Acceleration","Temperature"],"answer":"Acceleration","explanation":"Acceleration has both magnitude and direction."},
+    {"id":"PHY_030","stream":"Science","subject":"Physics","topic":"Kinematics","difficulty":"Medium","q":"A body moving at 10 m/s accelerates at 2 m/s² for 4 s. Its final speed is:","options":["12 m/s","14 m/s","18 m/s","20 m/s"],"answer":"18 m/s","explanation":"v = u + at = 10 + 2×4 = 18 m/s."},
+    {"id":"PHY_031","stream":"Science","subject":"Physics","topic":"Work, Energy and Power","difficulty":"Easy","q":"Power is the rate of doing:","options":["Force","Work","Momentum","Displacement"],"answer":"Work","explanation":"Power is work done per unit time."},
+    {"id":"PHY_032","stream":"Science","subject":"Physics","topic":"Circular Motion","difficulty":"Medium","q":"Centripetal acceleration is directed:","options":["Tangentially forward","Away from the centre","Towards the centre","Vertically upward always"],"answer":"Towards the centre","explanation":"Centripetal acceleration points radially inward."},
+    {"id":"PHY_033","stream":"Science","subject":"Physics","topic":"Laws of Motion","difficulty":"Medium","q":"The SI unit of impulse is:","options":["N s","N/s","J/s","kg/m"],"answer":"N s","explanation":"Impulse equals change in momentum and has unit newton-second."},
+    {"id":"PHY_034","stream":"Science","subject":"Physics","topic":"Work, Energy and Power","difficulty":"Hard","q":"A 2 kg body moving at 5 m/s has kinetic energy:","options":["10 J","20 J","25 J","50 J"],"answer":"25 J","explanation":"KE = ½mv² = ½×2×25 = 25 J."},
+    {"id":"PHY_035","stream":"Science","subject":"Physics","topic":"Units and Measurements","difficulty":"Medium","q":"How many significant figures are in 0.00450?","options":["2","3","4","5"],"answer":"3","explanation":"Leading zeros are not significant; 4, 5 and the trailing decimal zero count."},
+    {"id":"CHE_021","stream":"Science","subject":"Chemistry","topic":"Mole Concept","difficulty":"Easy","q":"Avogadro's constant is approximately:","options":["6.022 × 10²³ mol⁻¹","3.14 × 10⁸ mol⁻¹","9.8 mol⁻¹","1.6 × 10⁻¹⁹ mol⁻¹"],"answer":"6.022 × 10²³ mol⁻¹","explanation":"One mole contains approximately 6.022 × 10²³ specified entities."},
+    {"id":"CHE_022","stream":"Science","subject":"Chemistry","topic":"Atomic Structure","difficulty":"Easy","q":"The atomic number of an element equals the number of:","options":["Neutrons only","Protons","Protons plus neutrons","Shells"],"answer":"Protons","explanation":"Atomic number is defined by the number of protons in the nucleus."},
+    {"id":"CHE_023","stream":"Science","subject":"Chemistry","topic":"Chemical Bonding","difficulty":"Medium","q":"Which species has a trigonal planar molecular shape?","options":["NH₃","BF₃","H₂O","CH₄"],"answer":"BF₃","explanation":"BF₃ has three bonding regions around boron and no lone pair on the central atom."},
+    {"id":"CHE_024","stream":"Science","subject":"Chemistry","topic":"Periodic Table","difficulty":"Medium","q":"Across a period, first ionization enthalpy generally:","options":["Generally increases","Always becomes zero","Always decreases","Never changes"],"answer":"Generally increases","explanation":"Effective nuclear charge generally increases across a period, though exceptions occur."},
+    {"id":"CHE_025","stream":"Science","subject":"Chemistry","topic":"Redox Reactions","difficulty":"Easy","q":"Oxidation is commonly defined as:","options":["Gain of electrons","Loss of electrons","Gain of neutrons","Loss of protons from nucleus"],"answer":"Loss of electrons","explanation":"In electron-transfer terms, oxidation is loss of electrons."},
+    {"id":"CHE_026","stream":"Science","subject":"Chemistry","topic":"Chemical Bonding","difficulty":"Easy","q":"The bond in sodium chloride is primarily:","options":["Covalent","Ionic","Metallic","Hydrogen"],"answer":"Ionic","explanation":"Sodium transfers an electron to chlorine, producing oppositely charged ions."},
+    {"id":"CHE_027","stream":"Science","subject":"Chemistry","topic":"Mole Concept","difficulty":"Medium","q":"The molar mass of CO₂ is approximately:","options":["28 g/mol","32 g/mol","44 g/mol","48 g/mol"],"answer":"44 g/mol","explanation":"12 + 2×16 = 44 g/mol."},
+    {"id":"CHE_028","stream":"Science","subject":"Chemistry","topic":"Atomic Structure","difficulty":"Hard","q":"For a p subshell, the azimuthal quantum number l equals:","options":["0","1","2","3"],"answer":"1","explanation":"The s, p, d and f subshells correspond to l = 0, 1, 2 and 3."},
+    {"id":"MAT_021","stream":"Science","subject":"Maths","topic":"Sets","difficulty":"Easy","q":"If A = {1,2,3}, how many elements are in A?","options":["2","3","4","6"],"answer":"3","explanation":"The set contains three distinct elements."},
+    {"id":"MAT_022","stream":"Science","subject":"Maths","topic":"Sequences and Series","difficulty":"Easy","q":"The common difference of 7, 11, 15, 19, ... is:","options":["2","3","4","5"],"answer":"4","explanation":"Subtract consecutive terms: 11 − 7 = 4."},
+    {"id":"MAT_023","stream":"Science","subject":"Maths","topic":"Trigonometry","difficulty":"Easy","q":"The value of cos 0° is:","options":["0","1/2","1","−1"],"answer":"1","explanation":"cos 0° = 1."},
+    {"id":"MAT_024","stream":"Science","subject":"Maths","topic":"Permutations","difficulty":"Medium","q":"The number of ways to arrange 4 distinct books in a row is:","options":["16","24","12","8"],"answer":"24","explanation":"There are 4! = 4×3×2×1 = 24 arrangements."},
+    {"id":"MAT_025","stream":"Science","subject":"Maths","topic":"Quadratic Equations","difficulty":"Medium","q":"The discriminant of ax² + bx + c = 0 is:","options":["b² − 4ac","a² − 4bc","b − 4ac","b² + 4ac"],"answer":"b² − 4ac","explanation":"The discriminant is D = b² − 4ac."},
+    {"id":"MAT_026","stream":"Science","subject":"Maths","topic":"Sets","difficulty":"Medium","q":"If n(A)=5, n(B)=4 and A and B are disjoint, n(A ∪ B) is:","options":["1","5","9","20"],"answer":"9","explanation":"For disjoint sets, n(A ∪ B) = n(A) + n(B) = 9."},
+    {"id":"MAT_027","stream":"Science","subject":"Maths","topic":"Sequences and Series","difficulty":"Medium","q":"The sum of the first n natural numbers is:","options":["n²","n(n+1)/2","n(n−1)/2","2n+1"],"answer":"n(n+1)/2","explanation":"The standard sum formula is n(n+1)/2."},
+    {"id":"MAT_028","stream":"Science","subject":"Maths","topic":"Trigonometry","difficulty":"Hard","q":"If sin θ = 5/13 and θ is acute, cos θ is:","options":["5/12","12/13","13/12","8/13"],"answer":"12/13","explanation":"Using sin²θ + cos²θ = 1 gives cos θ = √(1 − 25/169) = 12/13."},
+    # Expanded Science question bank: PCB
+    {"id":"BIO_003","stream":"Science","subject":"Biology","topic":"Cell Biology","difficulty":"Easy","q":"The site of protein synthesis in a cell is the:","options":["Ribosome","Lysosome","Vacuole","Centrosome"],"answer":"Ribosome","explanation":"Ribosomes translate mRNA to assemble proteins."},
+    {"id":"BIO_004","stream":"Science","subject":"Biology","topic":"Biomolecules","difficulty":"Easy","q":"Enzymes are mostly:","options":["Carbohydrates","Proteins","Lipids","Mineral salts"],"answer":"Proteins","explanation":"Most enzymes are proteins, although some RNA molecules can catalyse reactions."},
+    {"id":"BIO_005","stream":"Science","subject":"Biology","topic":"Plant Physiology","difficulty":"Medium","q":"Photosynthesis mainly occurs in the:","options":["Mitochondrion","Chloroplast","Nucleus","Golgi apparatus"],"answer":"Chloroplast","explanation":"Chloroplasts contain chlorophyll and the machinery for photosynthesis."},
+    {"id":"BIO_006","stream":"Science","subject":"Biology","topic":"Human Physiology","difficulty":"Easy","q":"Which blood cells primarily transport oxygen?","options":["Red blood cells","Platelets","White blood cells","Plasma proteins"],"answer":"Red blood cells","explanation":"Haemoglobin in red blood cells binds and transports oxygen."},
+    {"id":"BIO_007","stream":"Science","subject":"Biology","topic":"Cell Biology","difficulty":"Medium","q":"The organelle containing most of a eukaryotic cell's DNA is the:","options":["Nucleus","Ribosome","Lysosome","Cell wall"],"answer":"Nucleus","explanation":"The nucleus houses most of the cell's genetic material."},
+    {"id":"BIO_008","stream":"Science","subject":"Biology","topic":"Plant Physiology","difficulty":"Medium","q":"Water and minerals are mainly transported in plants by:","options":["Phloem","Xylem","Epidermis","Stomata"],"answer":"Xylem","explanation":"Xylem conducts water and dissolved minerals from roots to other plant parts."},
+    {"id":"BIO_009","stream":"Science","subject":"Biology","topic":"Human Physiology","difficulty":"Medium","q":"The functional unit of the kidney is the:","options":["Neuron","Nephron","Alveolus","Villus"],"answer":"Nephron","explanation":"Nephrons filter blood and help form urine."},
+    {"id":"BIO_010","stream":"Science","subject":"Biology","topic":"Biomolecules","difficulty":"Easy","q":"DNA stands for:","options":["Deoxyribonucleic acid","Dinitrogen acid","Dynamic nucleic atom","Deoxygenated nitrogen acid"],"answer":"Deoxyribonucleic acid","explanation":"DNA is the molecule that stores hereditary information in organisms."},
+    {"id":"BIO_011","stream":"Science","subject":"Biology","topic":"Cell Biology","difficulty":"Hard","q":"During mitosis, sister chromatids separate in:","options":["Prophase","Metaphase","Anaphase","Interphase"],"answer":"Anaphase","explanation":"Sister chromatids are pulled to opposite poles during anaphase."},
+    {"id":"BIO_012","stream":"Science","subject":"Biology","topic":"Human Physiology","difficulty":"Hard","q":"Gas exchange in human lungs occurs mainly across the:","options":["Trachea","Alveolar walls","Epiglottis","Bronchi cartilage"],"answer":"Alveolar walls","explanation":"Thin alveolar walls provide a large surface for diffusion of gases."},
+    # Expanded Commerce question bank
+    {"id":"ACC_004","stream":"Commerce","subject":"Accountancy","topic":"Accounting Equation","difficulty":"Easy","q":"A business owner invests cash as capital. The effect is generally:","options":["Assets and capital increase","Assets decrease and liabilities increase","Only expenses increase","Capital decreases"],"answer":"Assets and capital increase","explanation":"Cash (an asset) and owner's capital both increase by the investment."},
+    {"id":"ACC_005","stream":"Commerce","subject":"Accountancy","topic":"Journal Entries","difficulty":"Medium","q":"Rent paid in cash is recorded by:","options":["Debit Rent, Credit Cash","Debit Cash, Credit Rent","Debit Capital, Credit Rent","Debit Sales, Credit Cash"],"answer":"Debit Rent, Credit Cash","explanation":"Rent expense is debited and cash is credited."},
+    {"id":"ACC_006","stream":"Commerce","subject":"Accountancy","topic":"Accounting Equation","difficulty":"Medium","q":"If capital is ₹40,000 and liabilities are ₹10,000, assets equal:","options":["₹30,000","₹40,000","₹50,000","₹10,000"],"answer":"₹50,000","explanation":"Assets = Liabilities + Capital = ₹10,000 + ₹40,000."},
+    {"id":"ACC_007","stream":"Commerce","subject":"Accountancy","topic":"Journal Entries","difficulty":"Easy","q":"Cash received from a debtor is recorded by debiting:","options":["Cash account","Sales account","Debtor account only","Purchases account"],"answer":"Cash account","explanation":"Cash increases, so the cash account is debited in the basic entry."},
+    {"id":"ACC_008","stream":"Commerce","subject":"Accountancy","topic":"Accounting Equation","difficulty":"Hard","q":"A transaction that purchases equipment for cash will usually:","options":["Increase total assets","Decrease total assets","Change the composition of assets but not total assets","Increase liabilities"],"answer":"Change the composition of assets but not total assets","explanation":"Equipment increases while cash decreases by the same amount."},
+    {"id":"BST_003","stream":"Commerce","subject":"Business Studies","topic":"Business Objectives","difficulty":"Easy","q":"Which is a non-economic objective of a business?","options":["Customer satisfaction","Maximising only inventory","Ignoring quality","Avoiding all innovation"],"answer":"Customer satisfaction","explanation":"Meeting customer needs is an important non-financial objective that supports business success."},
+    {"id":"BST_004","stream":"Commerce","subject":"Business Studies","topic":"Forms of Business","difficulty":"Easy","q":"A major advantage of a partnership is:","options":["Shared capital and responsibility","No agreement between partners ever","Unlimited access to public funds","No need for coordination"],"answer":"Shared capital and responsibility","explanation":"Partners can pool resources, skills and decision-making."},
+    {"id":"BST_005","stream":"Commerce","subject":"Business Studies","topic":"Business Objectives","difficulty":"Medium","q":"Entrepreneurship primarily involves:","options":["Identifying opportunities and organising resources","Avoiding all risk and decisions","Only recording transactions","Eliminating customer needs"],"answer":"Identifying opportunities and organising resources","explanation":"Entrepreneurs identify opportunities, organise resources and accept calculated risks."},
+    {"id":"ECO_003","stream":"Commerce","subject":"Economics","topic":"Basic Concepts","difficulty":"Easy","q":"Opportunity cost is the:","options":["Value of the next best alternative forgone","Total money in a bank","Price of every good added together","Cost that is always zero"],"answer":"Value of the next best alternative forgone","explanation":"Opportunity cost measures what is given up when a choice is made."},
+    {"id":"ECO_004","stream":"Commerce","subject":"Economics","topic":"Demand","difficulty":"Medium","q":"A demand schedule shows the relationship between price and:","options":["Quantity demanded","Production technology only","Tax rates only","Population only"],"answer":"Quantity demanded","explanation":"A demand schedule lists quantities demanded at different prices, other things equal."},
+    {"id":"ECO_005","stream":"Commerce","subject":"Economics","topic":"Basic Concepts","difficulty":"Medium","q":"Which is an example of a capital good?","options":["A machine used in a factory","A snack bought for immediate consumption","A bus ticket for a passenger","A household's daily meal"],"answer":"A machine used in a factory","explanation":"Capital goods help produce other goods and services."},
+    {"id":"ECO_006","stream":"Commerce","subject":"Economics","topic":"Demand","difficulty":"Hard","q":"If demand increases while supply stays the same, equilibrium price generally:","options":["Rises","Falls to zero","Always remains unchanged","Becomes negative"],"answer":"Rises","explanation":"An increase in demand with supply unchanged generally raises equilibrium price and quantity."},
+    # Expanded Humanities question bank
+    {"id":"HIS_002","stream":"Humanities","subject":"History","topic":"Historical Sources","difficulty":"Easy","q":"Coins are especially useful to historians for studying:","options":["Rulers, symbols and economic exchanges","Modern internet speed","Today's weather forecast","Future election results"],"answer":"Rulers, symbols and economic exchanges","explanation":"Coins can provide evidence about rulers, inscriptions, symbols and trade."},
+    {"id":"HIS_003","stream":"Humanities","subject":"History","topic":"Historical Sources","difficulty":"Medium","q":"Why do historians compare multiple sources about an event?","options":["To cross-check evidence and perspectives","To avoid all evidence","To guarantee every source is identical","To replace research with guesses"],"answer":"To cross-check evidence and perspectives","explanation":"Comparing sources helps evaluate reliability, context and differing perspectives."},
+    {"id":"HIS_004","stream":"Humanities","subject":"History","topic":"Historical Sources","difficulty":"Hard","q":"A primary source is generally one that:","options":["Comes from the period or a direct participant","Is always a modern textbook summary","Contains no evidence","Is necessarily fictional"],"answer":"Comes from the period or a direct participant","explanation":"Primary sources originate in or directly relate to the period being studied."},
+    {"id":"GEO_002","stream":"Humanities","subject":"Geography","topic":"Maps and Scale","difficulty":"Easy","q":"Lines joining places of equal height above sea level are called:","options":["Contours","Isobars","Isotherms","Meridians"],"answer":"Contours","explanation":"Contour lines connect points of equal elevation."},
+    {"id":"GEO_003","stream":"Humanities","subject":"Geography","topic":"Maps and Scale","difficulty":"Medium","q":"The Equator is located at:","options":["0° latitude","0° longitude","90° north latitude","180° longitude"],"answer":"0° latitude","explanation":"The Equator is the reference line at zero degrees latitude."},
+    {"id":"GEO_004","stream":"Humanities","subject":"Geography","topic":"Maps and Scale","difficulty":"Medium","q":"The Prime Meridian passes through:","options":["Greenwich","The Equator only","The North Pole only","The International Date Line only"],"answer":"Greenwich","explanation":"The zero-degree longitude reference passes through Greenwich, London."},
+    {"id":"GEO_005","stream":"Humanities","subject":"Geography","topic":"Physical Geography","difficulty":"Easy","q":"The continuous movement of water between Earth's surface and atmosphere is the:","options":["Water cycle","Rock cycle only","Carbon dating process","Tide table"],"answer":"Water cycle","explanation":"Evaporation, condensation and precipitation are key parts of the water cycle."},
+    {"id":"POL_002","stream":"Humanities","subject":"Political Science","topic":"Constitution","difficulty":"Easy","q":"The principle that everyone is subject to the same law is called:","options":["Rule of law","Rule by wealth","Absolute privilege","Censorship"],"answer":"Rule of law","explanation":"Rule of law means laws apply according to established legal principles rather than arbitrary power."},
+    {"id":"POL_003","stream":"Humanities","subject":"Political Science","topic":"Democracy","difficulty":"Medium","q":"In a democracy, citizens commonly choose representatives through:","options":["Elections","Inheritance only","Random weather events","Military rank"],"answer":"Elections","explanation":"Free and fair elections are a central way citizens choose representatives in representative democracies."},
+    {"id":"POL_004","stream":"Humanities","subject":"Political Science","topic":"Constitution","difficulty":"Medium","q":"Separation of powers divides government authority among:","options":["Legislature, executive and judiciary","Only private companies","Only schools","Only local shops"],"answer":"Legislature, executive and judiciary","explanation":"The separation of powers distributes legislative, executive and judicial functions."},
 ]
 
 def connect():
@@ -189,8 +283,9 @@ if "active_quiz" not in st.session_state:
 if "submitted_result" not in st.session_state:
     st.session_state.submitted_result = None
 
-st.title("📚 SmartStudy AI 2.0")
-st.caption("Personalized study support • Quiz • Analytics • Notes • Planner")
+st.markdown("<div class='brand-eyebrow'>YOUR PERSONAL LEARNING SPACE</div>", unsafe_allow_html=True)
+st.title("SmartStudy AI")
+st.caption("Learn smarter. Plan better. Make every study session count.")
 
 with st.sidebar:
     st.markdown("### 👤 Student profile")
@@ -210,7 +305,7 @@ with st.sidebar:
         with signup_tab:
             new_name = st.text_input("Choose username", key="new_name").strip().lower()
             new_pin = st.text_input("Choose PIN (4+ digits)", type="password", key="new_pin")
-            new_stream = st.selectbox("Stream", ["Science", "Commerce", "Humanities"], key="new_stream")
+            new_stream = st.selectbox("Stream / track", ["Science • PCM", "Science • PCB", "Commerce", "Humanities"], key="new_stream")
             new_class = st.selectbox("Class", ["9", "10", "11", "12"], index=2, key="new_class")
             if st.button("Create profile", use_container_width=True):
                 if len(new_name) < 3 or not new_name.replace("_","").isalnum():
@@ -228,14 +323,18 @@ with st.sidebar:
         if user:
             st.success(f"Signed in as **{user[0]}**")
             st.caption(f"Class {user[2]} • {user[1]}")
+            stream_options = ["Science • PCM", "Science • PCB", "Commerce", "Humanities"]
+            saved_stream = user[1]
+            if saved_stream == "Science": saved_stream = "Science • PCM"
+            if saved_stream not in stream_options: saved_stream = "Science • PCM"
             chosen_stream = st.selectbox(
-                "Active stream",
-                ["Science", "Commerce", "Humanities"],
-                index=["Science", "Commerce", "Humanities"].index(user[1]),
+                "Active stream / track",
+                stream_options,
+                index=stream_options.index(saved_stream),
                 key="active_stream_selector",
-                help="Change this to explore the question bank for another stream."
+                help="Choose PCM or PCB for Science, or switch to Commerce/Humanities."
             )
-            if chosen_stream != user[1]:
+            if chosen_stream != saved_stream or user[1] != chosen_stream:
                 update_user_stream(user[0], chosen_stream)
                 st.session_state.active_quiz = []
                 st.session_state.submitted_result = None
@@ -250,7 +349,7 @@ with st.sidebar:
 if not st.session_state.signed_in_user:
     st.info("Create a student profile or sign in from the sidebar to use your personal quiz history, planner, and notes.")
     st.markdown("### What you can do")
-    st.markdown("- Take randomized quizzes with explanations\n- Review progress analytics\n- Generate a topic-based revision plan\n- Save notes for revision\n- Choose Science, Commerce, or Humanities")
+    st.markdown("- Take randomized quizzes with explanations\n- Review progress analytics\n- Generate a topic-based revision plan\n- Save notes for revision\n- Choose PCM, PCB, Commerce, or Humanities")
     st.warning("Prototype note: local SQLite storage is used. Streamlit Cloud's local disk is not guaranteed permanent; for durable online accounts, connect a managed database before using this with real student data.")
     st.stop()
 
@@ -258,6 +357,8 @@ username = st.session_state.signed_in_user
 user = get_user(username)
 profile_stream = user[1]
 class_level = user[2]
+science_track = "PCB" if profile_stream == "Science • PCB" else "PCM"
+question_stream = "Science" if profile_stream.startswith("Science") else profile_stream
 all_attempts = get_attempts(username)
 topic_scores = topics_summary(all_attempts)
 
@@ -267,6 +368,7 @@ tab_dashboard, tab_quiz, tab_planner, tab_notes, tab_about = st.tabs(
 
 with tab_dashboard:
     st.markdown(f"## Welcome back, {username.title()} 👋")
+    st.markdown(f"<div style='background:linear-gradient(120deg,#5145CD,#8178F4);padding:18px 22px;border-radius:18px;color:white;margin:10px 0 22px 0;'><div style='font-size:12px;letter-spacing:.1em;font-weight:700;opacity:.85;'>YOUR CURRENT LEARNING TRACK</div><div style='font-family:Manrope,sans-serif;font-size:24px;font-weight:800;margin-top:3px;'>{profile_stream} · Class {class_level}</div><div style='opacity:.9;font-size:13px;margin-top:4px;'>Small consistent sessions build strong results.</div></div>", unsafe_allow_html=True)
     c1,c2,c3 = st.columns(3)
     c1.metric("Quizzes completed", len(all_attempts))
     avg = round(sum(a["Score (%)"] for a in all_attempts)/len(all_attempts)) if all_attempts else 0
@@ -289,14 +391,16 @@ with tab_dashboard:
 
 with tab_quiz:
     st.markdown("## Practice quiz")
-    subjects = sorted({q["subject"] for q in QUESTIONS if q["stream"] == profile_stream})
+    subjects = sorted({q["subject"] for q in QUESTIONS if q["stream"] == question_stream and
+                       (question_stream != "Science" or (science_track == "PCM" and q["subject"] != "Biology") or (science_track == "PCB" and q["subject"] != "Maths"))})
     subject_choices = ["All subjects"] + subjects
     c1,c2,c3 = st.columns(3)
     with c1: subject_filter = st.selectbox("Subject", subject_choices, key=f"quiz_subject_{profile_stream}")
     with c2: difficulty_filter = st.selectbox("Difficulty", ["All","Easy","Medium","Hard"], key="quiz_difficulty")
     with c3: question_count = st.selectbox("Questions", [5,10], index=1, key="quiz_count")
     if st.button("🎲 Generate quiz", type="primary", use_container_width=True):
-        pool = [q for q in QUESTIONS if q["stream"] == profile_stream and
+        pool = [q for q in QUESTIONS if q["stream"] == question_stream and
+                (question_stream != "Science" or (science_track == "PCM" and q["subject"] != "Biology") or (science_track == "PCB" and q["subject"] != "Maths")) and
                 (subject_filter == "All subjects" or q["subject"] == subject_filter) and
                 (difficulty_filter == "All" or q["difficulty"] == difficulty_filter)]
         if not pool:
@@ -354,7 +458,7 @@ with tab_planner:
     if st.button("Build my revision plan", type="primary", use_container_width=True):
         topics=[x.strip() for x in weak_text.splitlines() if x.strip()]
         if not topics:
-            topics=[f"{s} revision" for s in sorted({q['subject'] for q in QUESTIONS if q['stream']==profile_stream})[:3]]
+            topics=[f"{s} revision" for s in sorted({q['subject'] for q in QUESTIONS if q['stream']==question_stream and (question_stream != 'Science' or (science_track == 'PCM' and q['subject'] != 'Biology') or (science_track == 'PCB' and q['subject'] != 'Maths'))})[:3]]
         scores={t:topic_scores.get(t,45) for t in topics}
         plan=make_plan(scores,minutes)
         st.session_state["last_plan"] = {"date":str(day),"minutes":minutes,"rows":plan.to_dict(orient="records")}
@@ -369,7 +473,7 @@ with tab_planner:
 with tab_notes:
     st.markdown("## Notes & revision cards")
     with st.form("note_form", clear_on_submit=True):
-        n_subject=st.selectbox("Subject", sorted({q["subject"] for q in QUESTIONS if q["stream"]==profile_stream}), key=f"note_subject_{profile_stream}")
+        n_subject=st.selectbox("Subject", sorted({q["subject"] for q in QUESTIONS if q["stream"]==question_stream and (question_stream != "Science" or (science_track == "PCM" and q["subject"] != "Biology") or (science_track == "PCB" and q["subject"] != "Maths"))}), key=f"note_subject_{profile_stream}")
         n_title=st.text_input("Note title", placeholder="e.g. Newton's laws — key points")
         n_content=st.text_area("Your notes", placeholder="Write definitions, formulas, examples or quick reminders...")
         note_submit=st.form_submit_button("Save note", use_container_width=True)
@@ -394,7 +498,7 @@ with tab_notes:
 
 with tab_about:
     st.markdown("""
-    ## About SmartStudy AI 2.0
+    ## About SmartStudy AI 3.0
     **Problem statement:** Students may struggle to decide what to revise first and how to divide available study time.
 
     **Prototype workflow**
@@ -405,10 +509,16 @@ with tab_about:
     5. The planner allocates more time to higher-priority topics.
     6. Quiz attempts and notes are stored in a local SQLite database.
 
-    **Current streams:** Science (PCM-style Physics/Chemistry/Maths plus introductory Biology items), Commerce, Humanities.
-    **Current limitations:** This is an educational prototype. Priority rules are not a production-trained AI model. The sample question bank is small. Local SQLite storage on free hosted instances may not survive restarts/rebuilds. The profile/PIN is for prototype separation, not high-security authentication. Do not store sensitive personal information.
+    **Current tracks:** Science • PCM (Physics, Chemistry, Maths), Science • PCB (Physics, Chemistry, Biology), Commerce and Humanities.
+    **Current limitations:** This is an educational prototype. Priority rules are not a production-trained AI model. The question bank is expanded but remains a learning prototype and should be reviewed against the current syllabus. Local SQLite storage on free hosted instances may not survive restarts/rebuilds. The profile/PIN is for prototype separation, not high-security authentication. Do not store sensitive personal information.
     """)
     st.metric("Questions in this prototype", len(QUESTIONS))
-    st.write(pd.DataFrame([{"Stream":s,"Questions":sum(q["stream"]==s for q in QUESTIONS)} for s in ["Science","Commerce","Humanities"]]))
+    counts = [
+        {"Track": "Science • PCM", "Subjects": "Physics, Chemistry, Maths", "Questions": sum(q["stream"]=="Science" and q["subject"]!="Biology" for q in QUESTIONS)},
+        {"Track": "Science • PCB", "Subjects": "Physics, Chemistry, Biology", "Questions": sum(q["stream"]=="Science" and q["subject"]!="Maths" for q in QUESTIONS)},
+        {"Track": "Commerce", "Subjects": "Accountancy, Business Studies, Economics", "Questions": sum(q["stream"]=="Commerce" for q in QUESTIONS)},
+        {"Track": "Humanities", "Subjects": "History, Geography, Political Science", "Questions": sum(q["stream"]=="Humanities" for q in QUESTIONS)},
+    ]
+    st.dataframe(pd.DataFrame(counts), use_container_width=True, hide_index=True)
 
-st.sidebar.caption("SmartStudy AI 2.0 • Student prototype")
+st.sidebar.caption("SmartStudy AI 3.0 • Student prototype")
