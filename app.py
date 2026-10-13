@@ -62,8 +62,43 @@ p, label, .stCaption { color:#536078; }
 [role="option"] {
   color:#172033 !important;
 }
+/* Streamlit/BaseWeb select popup: keep menu and every option high-contrast.
+   The popup is rendered in a portal, so target its data-baseweb wrapper too. */
+[data-baseweb="popover"],
+[data-baseweb="popover"] > div,
+[data-baseweb="popover"] [data-baseweb="menu"],
 [data-baseweb="popover"] [role="listbox"],
-[data-baseweb="popover"] [role="option"] { background:#FFFFFF !important; }
+[data-baseweb="menu"],
+ul[role="listbox"] {
+  background:#171923 !important;
+  color:#FFFFFF !important;
+  border:1px solid #343849 !important;
+}
+[data-baseweb="popover"] [role="option"],
+[data-baseweb="menu"] [role="option"],
+ul[role="listbox"] [role="option"] {
+  background:#171923 !important;
+  color:#FFFFFF !important;
+  -webkit-text-fill-color:#FFFFFF !important;
+}
+[data-baseweb="popover"] [role="option"] *,
+[data-baseweb="menu"] [role="option"] *,
+ul[role="listbox"] [role="option"] * {
+  color:#FFFFFF !important;
+  -webkit-text-fill-color:#FFFFFF !important;
+}
+[data-baseweb="popover"] [role="option"]:hover,
+[data-baseweb="menu"] [role="option"]:hover,
+ul[role="listbox"] [role="option"]:hover {
+  background:#343849 !important;
+}
+[data-baseweb="popover"] [aria-selected="true"],
+[data-baseweb="menu"] [aria-selected="true"],
+ul[role="listbox"] [aria-selected="true"] {
+  background:#5145CD !important;
+  color:#FFFFFF !important;
+  -webkit-text-fill-color:#FFFFFF !important;
+}
 [data-testid="stRadio"] label, [data-testid="stCheckbox"] label { color:#172033 !important; }
 [data-testid="stDataFrame"], [data-testid="stTable"] { border:1px solid #E5E8F0; border-radius:13px; overflow:hidden; }
 [data-testid="stAlert"] { border-radius:13px; }
