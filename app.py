@@ -95,6 +95,12 @@ def get_user(username):
     conn.close()
     return row
 
+def update_user_stream(username, stream):
+    conn = connect()
+    conn.execute("UPDATE users SET stream=? WHERE username=?", (stream, username))
+    conn.commit()
+    conn.close()
+
 def create_user(username, pin, stream, class_level):
     import hashlib
     pin_hash = hashlib.sha256(pin.encode("utf-8")).hexdigest()
@@ -222,6 +228,19 @@ with st.sidebar:
         if user:
             st.success(f"Signed in as **{user[0]}**")
             st.caption(f"Class {user[2]} • {user[1]}")
+            chosen_stream = st.selectbox(
+                "Active stream",
+                ["Science", "Commerce", "Humanities"],
+                index=["Science", "Commerce", "Humanities"].index(user[1]),
+                key="active_stream_selector",
+                help="Change this to explore the question bank for another stream."
+            )
+            if chosen_stream != user[1]:
+                update_user_stream(user[0], chosen_stream)
+                st.session_state.active_quiz = []
+                st.session_state.submitted_result = None
+                st.session_state.pop("last_plan", None)
+                st.rerun()
         if st.button("Sign out", use_container_width=True):
             st.session_state.signed_in_user = None
             st.session_state.active_quiz = []
@@ -273,7 +292,7 @@ with tab_quiz:
     subjects = sorted({q["subject"] for q in QUESTIONS if q["stream"] == profile_stream})
     subject_choices = ["All subjects"] + subjects
     c1,c2,c3 = st.columns(3)
-    with c1: subject_filter = st.selectbox("Subject", subject_choices, key="quiz_subject")
+    with c1: subject_filter = st.selectbox("Subject", subject_choices, key=f"quiz_subject_{profile_stream}")
     with c2: difficulty_filter = st.selectbox("Difficulty", ["All","Easy","Medium","Hard"], key="quiz_difficulty")
     with c3: question_count = st.selectbox("Questions", [5,10], index=1, key="quiz_count")
     if st.button("🎲 Generate quiz", type="primary", use_container_width=True):
@@ -350,7 +369,7 @@ with tab_planner:
 with tab_notes:
     st.markdown("## Notes & revision cards")
     with st.form("note_form", clear_on_submit=True):
-        n_subject=st.selectbox("Subject", sorted({q["subject"] for q in QUESTIONS if q["stream"]==profile_stream}), key="note_subject")
+        n_subject=st.selectbox("Subject", sorted({q["subject"] for q in QUESTIONS if q["stream"]==profile_stream}), key=f"note_subject_{profile_stream}")
         n_title=st.text_input("Note title", placeholder="e.g. Newton's laws — key points")
         n_content=st.text_area("Your notes", placeholder="Write definitions, formulas, examples or quick reminders...")
         note_submit=st.form_submit_button("Save note", use_container_width=True)
