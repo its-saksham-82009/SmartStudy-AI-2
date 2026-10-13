@@ -35,7 +35,36 @@ p, label, .stCaption { color:#536078; }
 [data-testid="stTabs"] [role="tablist"] { gap:8px; border-bottom:1px solid #E2E6F0; }
 [data-testid="stTabs"] button[role="tab"] { border-radius:11px 11px 0 0; padding:12px 15px; font-weight:700; }
 [data-testid="stTabs"] button[aria-selected="true"] { color:#5145CD; border-bottom:3px solid #5145CD; }
-[data-testid="stSelectbox"] > div > div, [data-testid="stTextInput"] input, [data-testid="stTextArea"] textarea, [data-testid="stDateInput"] input { border-radius:11px; border-color:#DDE2EE; background:#FFFFFF; }
+/* High-contrast form controls: force dark text on white controls */
+[data-testid="stTextInput"] input,
+[data-testid="stTextArea"] textarea,
+[data-testid="stDateInput"] input,
+[data-testid="stNumberInput"] input,
+[data-testid="stSelectbox"] [data-baseweb="select"] > div,
+[data-testid="stMultiSelect"] [data-baseweb="select"] > div {
+  border-radius:11px !important;
+  border-color:#DDE2EE !important;
+  background:#FFFFFF !important;
+  color:#172033 !important;
+  -webkit-text-fill-color:#172033 !important;
+  caret-color:#5145CD !important;
+}
+[data-testid="stTextInput"] input::placeholder,
+[data-testid="stTextArea"] textarea::placeholder,
+[data-testid="stDateInput"] input::placeholder {
+  color:#68738A !important;
+  -webkit-text-fill-color:#68738A !important;
+  opacity:1 !important;
+}
+[data-testid="stSelectbox"] [data-baseweb="select"] *,
+[data-testid="stMultiSelect"] [data-baseweb="select"] *,
+[role="listbox"] [role="option"],
+[role="option"] {
+  color:#172033 !important;
+}
+[data-baseweb="popover"] [role="listbox"],
+[data-baseweb="popover"] [role="option"] { background:#FFFFFF !important; }
+[data-testid="stRadio"] label, [data-testid="stCheckbox"] label { color:#172033 !important; }
 [data-testid="stDataFrame"], [data-testid="stTable"] { border:1px solid #E5E8F0; border-radius:13px; overflow:hidden; }
 [data-testid="stAlert"] { border-radius:13px; }
 hr { border-color:#E6E9F2; }
