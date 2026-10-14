@@ -13,97 +13,54 @@ st.set_page_config(page_title="SmartStudy AI | Learn Smarter", page_icon="📚",
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
-:root { --brand:#5145CD; --brand2:#756CF0; --ink:#172033; --muted:#68738A; --line:#E7EAF2; --surface:#FFFFFF; --soft:#F5F6FC; }
-html, body, [class*="css"] { font-family:'DM Sans',sans-serif; }
-.brand-eyebrow { display:inline-block; color:#5145CD; background:#ECEBFF; border:1px solid #DFDDFF; border-radius:999px; padding:5px 11px; font-size:.72rem; font-weight:800; letter-spacing:.12em; margin-bottom:8px; }
-.stApp { background:linear-gradient(180deg,#F8F9FF 0%,#F5F7FC 100%); color:var(--ink); }
-[data-testid="stHeader"] { background:rgba(248,249,255,.92); }
-.block-container { max-width:1320px; padding-top:2rem; padding-bottom:3rem; }
-h1,h2,h3 { font-family:'Manrope',sans-serif !important; letter-spacing:-.035em; color:#172033; }
-h1 { font-size:2.35rem !important; font-weight:800 !important; }
+:root { --ink:#111111; --muted:#3F4652; --line:#C9CED8; --surface:#F8F9FC; --soft:#E7EAF0; --brand:#6655D9; }
+html, body, [class*="css"] { font-family:'DM Sans',sans-serif; color:#111111 !important; }
+.stApp { background:linear-gradient(180deg,#E8EBF2 0%,#DDE2EA 100%); color:#111111 !important; }
+[data-testid="stHeader"] { background:rgba(232,235,242,.96); }
+.block-container { max-width:1320px; padding-top:1.6rem; padding-bottom:3rem; }
+h1,h2,h3,h4,h5,h6 { font-family:'Manrope',sans-serif !important; letter-spacing:-.025em; color:#111111 !important; }
+h1 { font-size:2.25rem !important; font-weight:800 !important; }
 h2 { font-size:1.55rem !important; font-weight:800 !important; }
 h3 { font-size:1.12rem !important; font-weight:700 !important; }
-p, label, .stCaption { color:#536078; }
-[data-testid="stSidebar"] { background:#FFFFFF; border-right:1px solid #E7EAF2; }
-[data-testid="stSidebar"] > div { padding-top:1.5rem; }
-[data-testid="stMetric"] { background:#FFFFFF; border:1px solid var(--line); border-radius:18px; padding:20px 22px; box-shadow:0 5px 20px rgba(33,42,80,.045); }
-[data-testid="stMetricLabel"] { color:#68738A !important; font-weight:600; }
-[data-testid="stMetricValue"] { color:#22294A !important; font-family:'Manrope',sans-serif; font-weight:800; }
-.stButton > button, [data-testid="stFormSubmitButton"] button { border-radius:12px; min-height:2.8rem; border:1px solid #DADDF0; font-weight:700; transition:all .15s ease; }
-.stButton > button[kind="primary"], [data-testid="stFormSubmitButton"] button[kind="primary"] { background:linear-gradient(135deg,#5145CD,#756CF0); color:white; border:0; box-shadow:0 6px 15px rgba(81,69,205,.18); }
-.stButton > button:hover { border-color:#756CF0; transform:translateY(-1px); }
-[data-testid="stTabs"] [role="tablist"] { gap:8px; border-bottom:1px solid #E2E6F0; }
-[data-testid="stTabs"] button[role="tab"] { border-radius:11px 11px 0 0; padding:12px 15px; font-weight:700; }
-[data-testid="stTabs"] button[aria-selected="true"] { color:#5145CD; border-bottom:3px solid #5145CD; }
-/* High-contrast form controls: force dark text on white controls */
-[data-testid="stTextInput"] input,
-[data-testid="stTextArea"] textarea,
-[data-testid="stDateInput"] input,
-[data-testid="stNumberInput"] input,
-[data-testid="stSelectbox"] [data-baseweb="select"] > div,
-[data-testid="stMultiSelect"] [data-baseweb="select"] > div {
-  border-radius:11px !important;
-  border-color:#DDE2EE !important;
-  background:#FFFFFF !important;
-  color:#172033 !important;
-  -webkit-text-fill-color:#172033 !important;
-  caret-color:#5145CD !important;
+p, label, .stCaption, [data-testid="stMarkdownContainer"], [data-testid="stWidgetLabel"] { color:#111111 !important; }
+.brand-eyebrow { display:inline-block; color:#111111; background:#DCD8FF; border:1px solid #BEB7FF; border-radius:999px; padding:5px 11px; font-size:.72rem; font-weight:800; letter-spacing:.12em; margin-bottom:8px; }
+[data-testid="stSidebar"] { background:#D9DEE7; border-right:1px solid #BFC5D0; }
+[data-testid="stSidebar"] > div { padding-top:1.3rem; }
+[data-testid="stSidebar"] * { color:#111111 !important; }
+[data-testid="stMetric"] { background:#F8F9FC; border:1px solid #C9CED8; border-radius:16px; padding:18px 20px; box-shadow:0 4px 14px rgba(20,25,40,.07); }
+[data-testid="stMetricLabel"], [data-testid="stMetricValue"] { color:#111111 !important; }
+[data-testid="stMetricValue"] { font-family:'Manrope',sans-serif; font-weight:800; }
+.stButton > button, [data-testid="stFormSubmitButton"] button { border-radius:12px; min-height:2.8rem; border:1px solid #AEB5C3; background:#F8F9FC; color:#111111 !important; font-weight:700; transition:all .15s ease; }
+.stButton > button[kind="primary"], [data-testid="stFormSubmitButton"] button[kind="primary"] { background:#CFC9FF !important; color:#111111 !important; border:1px solid #9B90F5 !important; box-shadow:0 4px 12px rgba(75,60,170,.12); }
+.stButton > button:hover { border-color:#6655D9 !important; background:#E5E1FF !important; }
+[data-testid="stTabs"] [role="tablist"] { gap:6px; border-bottom:1px solid #BFC5D0; }
+[data-testid="stTabs"] button[role="tab"] { border-radius:10px 10px 0 0; padding:11px 13px; color:#111111 !important; font-weight:700; }
+[data-testid="stTabs"] button[aria-selected="true"] { color:#111111 !important; border-bottom:3px solid #6655D9; background:#F8F9FC; }
+/* Consistent light controls with black readable text */
+[data-testid="stTextInput"] input, [data-testid="stTextArea"] textarea, [data-testid="stDateInput"] input, [data-testid="stNumberInput"] input,
+[data-testid="stSelectbox"] [data-baseweb="select"] > div, [data-testid="stMultiSelect"] [data-baseweb="select"] > div {
+  background:#FFFFFF !important; color:#111111 !important; -webkit-text-fill-color:#111111 !important;
+  border:1px solid #7F8795 !important; border-radius:10px !important; caret-color:#111111 !important; opacity:1 !important;
 }
-[data-testid="stTextInput"] input::placeholder,
-[data-testid="stTextArea"] textarea::placeholder,
-[data-testid="stDateInput"] input::placeholder {
-  color:#68738A !important;
-  -webkit-text-fill-color:#68738A !important;
-  opacity:1 !important;
-}
-[data-testid="stSelectbox"] [data-baseweb="select"] *,
-[data-testid="stMultiSelect"] [data-baseweb="select"] *,
-[role="listbox"] [role="option"],
-[role="option"] {
-  color:#172033 !important;
-}
-/* Streamlit/BaseWeb select popup: keep menu and every option high-contrast.
-   The popup is rendered in a portal, so target its data-baseweb wrapper too. */
-[data-baseweb="popover"],
-[data-baseweb="popover"] > div,
-[data-baseweb="popover"] [data-baseweb="menu"],
-[data-baseweb="popover"] [role="listbox"],
-[data-baseweb="menu"],
-ul[role="listbox"] {
-  background:#171923 !important;
-  color:#FFFFFF !important;
-  border:1px solid #343849 !important;
-}
-[data-baseweb="popover"] [role="option"],
-[data-baseweb="menu"] [role="option"],
-ul[role="listbox"] [role="option"] {
-  background:#171923 !important;
-  color:#FFFFFF !important;
-  -webkit-text-fill-color:#FFFFFF !important;
-}
-[data-baseweb="popover"] [role="option"] *,
-[data-baseweb="menu"] [role="option"] *,
-ul[role="listbox"] [role="option"] * {
-  color:#FFFFFF !important;
-  -webkit-text-fill-color:#FFFFFF !important;
-}
-[data-baseweb="popover"] [role="option"]:hover,
-[data-baseweb="menu"] [role="option"]:hover,
-ul[role="listbox"] [role="option"]:hover {
-  background:#343849 !important;
-}
-[data-baseweb="popover"] [aria-selected="true"],
-[data-baseweb="menu"] [aria-selected="true"],
-ul[role="listbox"] [aria-selected="true"] {
-  background:#5145CD !important;
-  color:#FFFFFF !important;
-  -webkit-text-fill-color:#FFFFFF !important;
-}
-[data-testid="stRadio"] label, [data-testid="stCheckbox"] label { color:#172033 !important; }
-[data-testid="stDataFrame"], [data-testid="stTable"] { border:1px solid #E5E8F0; border-radius:13px; overflow:hidden; }
-[data-testid="stAlert"] { border-radius:13px; }
-hr { border-color:#E6E9F2; }
-@media (max-width: 700px) { .block-container { padding:1rem .8rem 2rem; } h1 {font-size:1.75rem !important;} [data-testid="stMetric"] {padding:14px;} [data-testid="stTabs"] [role="tablist"] {gap:0; overflow-x:auto;} [data-testid="stTabs"] button[role="tab"] {padding:9px 10px; font-size:.85rem;} }
+[data-testid="stTextInput"] input::placeholder, [data-testid="stTextArea"] textarea::placeholder, [data-testid="stDateInput"] input::placeholder { color:#454B55 !important; -webkit-text-fill-color:#454B55 !important; opacity:1 !important; }
+[data-testid="stSelectbox"] [data-baseweb="select"] *, [data-testid="stMultiSelect"] [data-baseweb="select"] * { color:#111111 !important; -webkit-text-fill-color:#111111 !important; }
+/* Make dropdown arrow and input visibility icons unmistakable on mobile */
+[data-testid="stSelectbox"] [data-baseweb="select"] svg, [data-testid="stMultiSelect"] [data-baseweb="select"] svg,
+[data-testid="stTextInput"] button svg, [data-testid="stTextInput"] svg { color:#111111 !important; fill:#111111 !important; stroke:#111111 !important; opacity:1 !important; }
+[data-testid="stTextInput"] button { background:#E4E7ED !important; border:1px solid #7F8795 !important; border-radius:0 9px 9px 0 !important; min-width:2.4rem !important; }
+/* Dropdown popup is also light: no dark text on dark background */
+[data-baseweb="popover"], [data-baseweb="popover"] > div, [data-baseweb="popover"] [data-baseweb="menu"],
+[data-baseweb="popover"] [role="listbox"], [data-baseweb="menu"], ul[role="listbox"] { background:#FFFFFF !important; color:#111111 !important; border:1px solid #AEB5C3 !important; }
+[data-baseweb="popover"] [role="option"], [data-baseweb="menu"] [role="option"], ul[role="listbox"] [role="option"] { background:#FFFFFF !important; color:#111111 !important; -webkit-text-fill-color:#111111 !important; }
+[data-baseweb="popover"] [role="option"] *, [data-baseweb="menu"] [role="option"] *, ul[role="listbox"] [role="option"] * { color:#111111 !important; -webkit-text-fill-color:#111111 !important; }
+[data-baseweb="popover"] [role="option"]:hover, [data-baseweb="menu"] [role="option"]:hover, ul[role="listbox"] [role="option"]:hover { background:#E7E3FF !important; }
+[data-baseweb="popover"] [aria-selected="true"], [data-baseweb="menu"] [aria-selected="true"], ul[role="listbox"] [aria-selected="true"] { background:#DCD8FF !important; color:#111111 !important; -webkit-text-fill-color:#111111 !important; }
+[data-testid="stRadio"] label, [data-testid="stCheckbox"] label { color:#111111 !important; }
+[data-testid="stDataFrame"], [data-testid="stTable"] { border:1px solid #C9CED8; border-radius:12px; overflow:hidden; }
+[data-testid="stAlert"] { border-radius:12px; color:#111111 !important; }
+[data-testid="stAlert"] * { color:#111111 !important; }
+hr { border-color:#C9CED8; }
+@media (max-width:700px) { .block-container { padding:1rem .8rem 2rem; } h1 {font-size:1.75rem !important;} [data-testid="stMetric"] {padding:13px;} [data-testid="stTabs"] [role="tablist"] {gap:0; overflow-x:auto;} [data-testid="stTabs"] button[role="tab"] {padding:9px 10px; font-size:.85rem;} [data-testid="stTextInput"] input {min-height:2.9rem;} }
 </style>
 """, unsafe_allow_html=True)
 
@@ -226,6 +183,42 @@ QUESTIONS = [
     {"id":"POL_002","stream":"Humanities","subject":"Political Science","topic":"Constitution","difficulty":"Easy","q":"The principle that everyone is subject to the same law is called:","options":["Rule of law","Rule by wealth","Absolute privilege","Censorship"],"answer":"Rule of law","explanation":"Rule of law means laws apply according to established legal principles rather than arbitrary power."},
     {"id":"POL_003","stream":"Humanities","subject":"Political Science","topic":"Democracy","difficulty":"Medium","q":"In a democracy, citizens commonly choose representatives through:","options":["Elections","Inheritance only","Random weather events","Military rank"],"answer":"Elections","explanation":"Free and fair elections are a central way citizens choose representatives in representative democracies."},
     {"id":"POL_004","stream":"Humanities","subject":"Political Science","topic":"Constitution","difficulty":"Medium","q":"Separation of powers divides government authority among:","options":["Legislature, executive and judiciary","Only private companies","Only schools","Only local shops"],"answer":"Legislature, executive and judiciary","explanation":"The separation of powers distributes legislative, executive and judicial functions."},
+    # Final question expansion (additional practice across all tracks)
+    {'id': 'PHY_036', 'stream': 'Science', 'subject': 'Physics', 'topic': 'Motion in a Straight Line', 'difficulty': 'Easy', 'q': 'The area under a velocity-time graph represents:', 'options': ['Acceleration', 'Displacement', 'Force', 'Power'], 'answer': 'Displacement', 'explanation': 'Signed area under a velocity-time graph gives displacement.'},
+    {'id': 'PHY_037', 'stream': 'Science', 'subject': 'Physics', 'topic': 'Laws of Motion', 'difficulty': 'Medium', 'q': 'A 2 kg object accelerates at 3 m/s². The net force is:', 'options': ['1.5 N', '5 N', '6 N', '9 N'], 'answer': '6 N', 'explanation': "Newton's second law: F = ma = 2 × 3 = 6 N."},
+    {'id': 'PHY_038', 'stream': 'Science', 'subject': 'Physics', 'topic': 'Work, Energy and Power', 'difficulty': 'Easy', 'q': 'Power is the rate of doing:', 'options': ['Work', 'Mass', 'Displacement only', 'Momentum'], 'answer': 'Work', 'explanation': 'Power is work done per unit time.'},
+    {'id': 'PHY_039', 'stream': 'Science', 'subject': 'Physics', 'topic': 'Circular Motion', 'difficulty': 'Medium', 'q': 'Centripetal acceleration is directed:', 'options': ['Away from the centre', 'Towards the centre', 'Along the tangent only', 'Opposite to velocity always'], 'answer': 'Towards the centre', 'explanation': 'Centripetal acceleration points radially inward.'},
+    {'id': 'PHY_040', 'stream': 'Science', 'subject': 'Physics', 'topic': 'Units and Measurements', 'difficulty': 'Easy', 'q': 'The dimensional formula of velocity is:', 'options': ['[LT⁻¹]', '[LT⁻²]', '[MLT⁻¹]', '[M⁰L⁰T]'], 'answer': '[LT⁻¹]', 'explanation': 'Velocity is displacement divided by time.'},
+    {'id': 'PHY_041', 'stream': 'Science', 'subject': 'Physics', 'topic': 'Gravitation', 'difficulty': 'Medium', 'q': 'If the distance between two masses doubles, gravitational force becomes:', 'options': ['Twice', 'Half', 'One-fourth', 'Four times'], 'answer': 'One-fourth', 'explanation': 'Gravitational force varies inversely as the square of distance.'},
+    {'id': 'CHE_031', 'stream': 'Science', 'subject': 'Chemistry', 'topic': 'Periodic Table', 'difficulty': 'Easy', 'q': 'Which element has atomic number 1?', 'options': ['Helium', 'Hydrogen', 'Lithium', 'Oxygen'], 'answer': 'Hydrogen', 'explanation': 'Hydrogen has one proton, so its atomic number is 1.'},
+    {'id': 'CHE_032', 'stream': 'Science', 'subject': 'Chemistry', 'topic': 'Chemical Bonding', 'difficulty': 'Easy', 'q': 'An ionic bond is formed mainly by:', 'options': ['Transfer of electrons', 'Sharing of protons', 'Sharing of neutrons', 'Transfer of nuclei'], 'answer': 'Transfer of electrons', 'explanation': 'Ionic bonding involves electron transfer and electrostatic attraction between ions.'},
+    {'id': 'CHE_033', 'stream': 'Science', 'subject': 'Chemistry', 'topic': 'Mole Concept', 'difficulty': 'Medium', 'q': 'How many particles are in one mole?', 'options': ['6.022 × 10²³', '3.011 × 10²³', '1.0 × 10³', '9.8 × 10²'], 'answer': '6.022 × 10²³', 'explanation': "Avogadro's constant is approximately 6.022 × 10²³ mol⁻¹."},
+    {'id': 'CHE_034', 'stream': 'Science', 'subject': 'Chemistry', 'topic': 'Atomic Structure', 'difficulty': 'Easy', 'q': 'The maximum number of electrons in the first shell is:', 'options': ['2', '8', '18', '32'], 'answer': '2', 'explanation': 'The first shell has n=1, so its capacity is 2n² = 2.'},
+    {'id': 'CHE_035', 'stream': 'Science', 'subject': 'Chemistry', 'topic': 'Chemical Bonding', 'difficulty': 'Medium', 'q': 'Which of these is a polar molecule?', 'options': ['H₂O', 'CO₂', 'CH₄', 'CCl₄'], 'answer': 'H₂O', 'explanation': 'Water has a bent shape and a net dipole moment.'},
+    {'id': 'CHE_036', 'stream': 'Science', 'subject': 'Chemistry', 'topic': 'Redox Reactions', 'difficulty': 'Medium', 'q': 'Oxidation is commonly defined as:', 'options': ['Loss of electrons', 'Gain of electrons', 'Gain of neutrons', 'Loss of protons only'], 'answer': 'Loss of electrons', 'explanation': 'Oxidation is electron loss; reduction is electron gain.'},
+    {'id': 'MAT_030', 'stream': 'Science', 'subject': 'Maths', 'topic': 'Permutations', 'difficulty': 'Easy', 'q': 'The value of 5! is:', 'options': ['20', '60', '120', '125'], 'answer': '120', 'explanation': '5! = 5 × 4 × 3 × 2 × 1 = 120.'},
+    {'id': 'MAT_031', 'stream': 'Science', 'subject': 'Maths', 'topic': 'Trigonometry', 'difficulty': 'Easy', 'q': 'The value of cos 60° is:', 'options': ['0', '1/2', '√3/2', '1'], 'answer': '1/2', 'explanation': 'cos 60° = 1/2.'},
+    {'id': 'MAT_032', 'stream': 'Science', 'subject': 'Maths', 'topic': 'Sets', 'difficulty': 'Easy', 'q': 'If A={1,2,3} and B={3,4}, then A ∩ B is:', 'options': ['{1,2}', '{3}', '{1,2,3,4}', '{}'], 'answer': '{3}', 'explanation': 'The intersection contains elements common to both sets.'},
+    {'id': 'MAT_033', 'stream': 'Science', 'subject': 'Maths', 'topic': 'Quadratic Equations', 'difficulty': 'Medium', 'q': 'The discriminant of ax²+bx+c=0 is:', 'options': ['b²−4ac', 'b²+4ac', '2a+b', 'a²−4bc'], 'answer': 'b²−4ac', 'explanation': 'The discriminant is D = b² − 4ac.'},
+    {'id': 'MAT_034', 'stream': 'Science', 'subject': 'Maths', 'topic': 'Sequences and Series', 'difficulty': 'Easy', 'q': 'The common difference of 3, 7, 11, 15, ... is:', 'options': ['3', '4', '7', '11'], 'answer': '4', 'explanation': 'Each term increases by 4.'},
+    {'id': 'MAT_035', 'stream': 'Science', 'subject': 'Maths', 'topic': 'Probability', 'difficulty': 'Medium', 'q': 'A fair coin is tossed once. The probability of getting heads is:', 'options': ['0', '1/4', '1/2', '1'], 'answer': '1/2', 'explanation': 'There are two equally likely outcomes, and one is heads.'},
+    {'id': 'BIO_013', 'stream': 'Science', 'subject': 'Biology', 'topic': 'Cell Biology', 'difficulty': 'Easy', 'q': 'The plasma membrane is primarily made of:', 'options': ['A phospholipid bilayer with proteins', 'Cellulose only', 'DNA only', 'Starch only'], 'answer': 'A phospholipid bilayer with proteins', 'explanation': 'The fluid-mosaic membrane contains lipids and embedded proteins.'},
+    {'id': 'BIO_014', 'stream': 'Science', 'subject': 'Biology', 'topic': 'Human Physiology', 'difficulty': 'Easy', 'q': 'Which organ pumps blood through the human body?', 'options': ['Lungs', 'Heart', 'Kidney', 'Liver'], 'answer': 'Heart', 'explanation': 'The heart pumps blood through pulmonary and systemic circulation.'},
+    {'id': 'BIO_015', 'stream': 'Science', 'subject': 'Biology', 'topic': 'Genetics', 'difficulty': 'Medium', 'q': 'A segment of DNA that codes for a functional product is called a:', 'options': ['Gene', 'Tissue', 'Vacuole', 'Lipid'], 'answer': 'Gene', 'explanation': 'A gene is a DNA sequence that contributes to a functional RNA or protein product.'},
+    {'id': 'BIO_016', 'stream': 'Science', 'subject': 'Biology', 'topic': 'Plant Physiology', 'difficulty': 'Medium', 'q': 'Tiny pores on leaf surfaces that help gas exchange are called:', 'options': ['Stomata', 'Nephrons', 'Alveoli', 'Villi'], 'answer': 'Stomata', 'explanation': 'Stomata regulate gas exchange and water loss in plants.'},
+    {'id': 'ACC_009', 'stream': 'Commerce', 'subject': 'Accountancy', 'topic': 'Accounting Equation', 'difficulty': 'Easy', 'q': 'When a business buys furniture for cash, which accounts are affected?', 'options': ['Furniture and Cash', 'Sales and Purchases', 'Capital and Sales only', 'Debtors and Creditors only'], 'answer': 'Furniture and Cash', 'explanation': 'Furniture increases and cash decreases; both are asset accounts.'},
+    {'id': 'ACC_010', 'stream': 'Commerce', 'subject': 'Accountancy', 'topic': 'Journal Entries', 'difficulty': 'Medium', 'q': 'Goods sold for cash are recorded by:', 'options': ['Debit Cash, Credit Sales', 'Debit Sales, Credit Cash', 'Debit Purchases, Credit Cash', 'Debit Capital, Credit Sales'], 'answer': 'Debit Cash, Credit Sales', 'explanation': 'Cash increases and sales revenue is credited.'},
+    {'id': 'ACC_011', 'stream': 'Commerce', 'subject': 'Accountancy', 'topic': 'Accounting Equation', 'difficulty': 'Medium', 'q': 'If assets are ₹90,000 and capital is ₹55,000, liabilities are:', 'options': ['₹35,000', '₹55,000', '₹90,000', '₹1,45,000'], 'answer': '₹35,000', 'explanation': 'Liabilities = Assets − Capital = ₹90,000 − ₹55,000.'},
+    {'id': 'BST_006', 'stream': 'Commerce', 'subject': 'Business Studies', 'topic': 'Forms of Business', 'difficulty': 'Easy', 'q': 'A business owned and controlled by one person is a:', 'options': ['Sole proprietorship', 'Co-operative society', 'Public company', 'Joint Hindu family only'], 'answer': 'Sole proprietorship', 'explanation': 'A sole proprietorship is owned and usually managed by one individual.'},
+    {'id': 'BST_007', 'stream': 'Commerce', 'subject': 'Business Studies', 'topic': 'Management', 'difficulty': 'Medium', 'q': 'Planning in management mainly involves:', 'options': ['Setting objectives and deciding actions', 'Recording only past transactions', 'Avoiding all decisions', 'Hiring without goals'], 'answer': 'Setting objectives and deciding actions', 'explanation': 'Planning establishes goals and selects actions to achieve them.'},
+    {'id': 'ECO_007', 'stream': 'Commerce', 'subject': 'Economics', 'topic': 'Basic Concepts', 'difficulty': 'Easy', 'q': 'Scarcity means that resources are:', 'options': ['Limited relative to wants', 'Unlimited for every use', 'Always free', 'Not useful'], 'answer': 'Limited relative to wants', 'explanation': 'Scarcity exists because resources are limited while wants are numerous.'},
+    {'id': 'ECO_008', 'stream': 'Commerce', 'subject': 'Economics', 'topic': 'Demand', 'difficulty': 'Medium', 'q': 'Other things equal, the law of demand states that when price rises, quantity demanded usually:', 'options': ['Falls', 'Rises', 'Always stays the same', 'Becomes infinite'], 'answer': 'Falls', 'explanation': 'The law of demand describes an inverse relationship between price and quantity demanded, other things equal.'},
+    {'id': 'HIS_005', 'stream': 'Humanities', 'subject': 'History', 'topic': 'Historical Sources', 'difficulty': 'Easy', 'q': 'A diary written by a person who witnessed an event can be a:', 'options': ['Primary source', 'Secondary source only', 'Map scale', 'Census category'], 'answer': 'Primary source', 'explanation': 'A witness diary is a first-hand source from the period or participant.'},
+    {'id': 'HIS_006', 'stream': 'Humanities', 'subject': 'History', 'topic': 'Historical Sources', 'difficulty': 'Medium', 'q': 'Archaeology primarily studies the past through:', 'options': ['Material remains', 'Weather forecasts', 'Stock prices', 'Future predictions'], 'answer': 'Material remains', 'explanation': 'Archaeologists study artefacts, structures and other material evidence.'},
+    {'id': 'GEO_006', 'stream': 'Humanities', 'subject': 'Geography', 'topic': 'Maps and Scale', 'difficulty': 'Easy', 'q': 'Longitude is measured east or west of the:', 'options': ['Prime Meridian', 'Equator', 'Tropic of Cancer', 'Arctic Circle'], 'answer': 'Prime Meridian', 'explanation': 'The Prime Meridian is the zero-degree reference for longitude.'},
+    {'id': 'GEO_007', 'stream': 'Humanities', 'subject': 'Geography', 'topic': 'Physical Geography', 'difficulty': 'Medium', 'q': 'The process by which water vapour cools and forms droplets is:', 'options': ['Condensation', 'Evaporation', 'Infiltration', 'Transpiration'], 'answer': 'Condensation', 'explanation': 'Cooling water vapour changes it into liquid droplets.'},
+    {'id': 'POL_005', 'stream': 'Humanities', 'subject': 'Political Science', 'topic': 'Democracy', 'difficulty': 'Easy', 'q': 'The right to vote in an election is commonly called:', 'options': ['Franchise', 'Veto only', 'Judicial review', 'Cabinet'], 'answer': 'Franchise', 'explanation': 'Franchise refers to the right to vote.'},
+    {'id': 'POL_006', 'stream': 'Humanities', 'subject': 'Political Science', 'topic': 'Constitution', 'difficulty': 'Medium', 'q': 'Fundamental rights are mainly intended to protect:', 'options': ['Basic freedoms and rights of individuals', 'Only government buildings', 'Only business profits', 'Only road networks'], 'answer': 'Basic freedoms and rights of individuals', 'explanation': 'Fundamental rights protect key freedoms and entitlements under the constitution.'}
 ]
 
 def connect():
@@ -347,7 +340,7 @@ if "active_quiz" not in st.session_state:
 if "submitted_result" not in st.session_state:
     st.session_state.submitted_result = None
 
-st.markdown("<div class='brand-eyebrow'>YOUR PERSONAL LEARNING SPACE</div>", unsafe_allow_html=True)
+st.markdown("<div class='brand-eyebrow'>YOUR PERSONAL LEARNING SPACE • 3.1</div>", unsafe_allow_html=True)
 st.title("SmartStudy AI")
 st.caption("Learn smarter. Plan better. Make every study session count.")
 
@@ -461,7 +454,7 @@ with tab_quiz:
     c1,c2,c3 = st.columns(3)
     with c1: subject_filter = st.selectbox("Subject", subject_choices, key=f"quiz_subject_{profile_stream}")
     with c2: difficulty_filter = st.selectbox("Difficulty", ["All","Easy","Medium","Hard"], key="quiz_difficulty")
-    with c3: question_count = st.selectbox("Questions", [5,10], index=1, key="quiz_count")
+    with c3: question_count = st.selectbox("Questions", [5,10,15,20], index=1, key="quiz_count")
     if st.button("🎲 Generate quiz", type="primary", use_container_width=True):
         pool = [q for q in QUESTIONS if q["stream"] == question_stream and
                 (question_stream != "Science" or (science_track == "PCM" and q["subject"] != "Biology") or (science_track == "PCB" and q["subject"] != "Maths")) and
