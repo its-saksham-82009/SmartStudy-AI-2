@@ -578,4 +578,4 @@ with tab_about:
     ]
     st.dataframe(pd.DataFrame(counts), use_container_width=True, hide_index=True)
 
-st.sidebar.caption("SmartStudy AI 3.0 • Student prototype")
+st.sidebar.caption("SmartStudy AI 3.0 •")
